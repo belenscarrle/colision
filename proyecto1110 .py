@@ -1,12 +1,14 @@
 import math
 import pygame
-class Vehiculo:
+class Vehiculo():
     def __init__(self,velocidad=0, lat=0.0, lon=300.0, imagen = './vehicle.png'):
         self.velocidad = velocidad
         self.lat = lat
         self.lon = lon
         self.distancia = 0
         self.imagen = imagen
+        self.rect =0
+
     def __str__(self) -> str:
         return(str(self.velocidad))
     def __repr__(self):
@@ -46,7 +48,6 @@ ventana = pygame.display.set_mode((800,600))
 autito = pygame.image.load(player.imagen).convert_alpha()
 autito2 = pygame.image.load(enemigo.imagen).convert_alpha()
 carretera = pygame.image.load("./fondo.png").convert_alpha()
-repr(player)
 while(True):
     for event in pygame.event.get():
         if(event.type == pygame.KEYDOWN and event.key == pygame.K_w):
@@ -57,6 +58,9 @@ while(True):
             player.frenar()
             
             print("la velocidad del vehiculo es: "+player.velocidad.__str__())
+        if event.type == pygame.K_LEFT and not pygam.sprite.collide_rect(enemigo, player) and not pygame.sprite.collide_rect(autito, autito2):
+            print("chocaron: ",imagen ="./descarga.png")
+
 
     ventana.fill((255,255,255))
     ventana.blit(carretera,(fondo.velocidad,0))
@@ -70,6 +74,6 @@ while(True):
             
     if(fondo.velocidad<-300):
         fondo.velocidad=0
-    if pygame.Rect.colliderect(enemigo,player):
-        print("se chocaron")
 
+        if pygame.sprite.collide_rect(enemigo,player):
+            enemigo.player(None)
